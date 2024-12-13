@@ -23,7 +23,8 @@ class UserResource extends JsonResource
             'phone'             => $this->phone, 
             'image'             => $this->image, 
             'summary'           => $this->summary, 
-            'status'            => $this->status, 
+            'status'            => $this->status,
+            'role'                  => $this->roleModel(),
         ];
     }
 }

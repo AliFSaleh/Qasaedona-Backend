@@ -59,6 +59,7 @@ class AuthController extends Controller
             'phone'            => $request->phone,
             'password'         => Hash::make($request->password),
         ]);
+        $user->assignRole('user');
 
         $token = $user->createToken('Sanctum', [])->plainTextToken;
         return response()->json([
@@ -182,6 +183,7 @@ class AuthController extends Controller
             // 'email'               => ['required', 'string', 'email', Rule::unique('users', 'email')->ignore($user->id)],
         ]);
         
+        $image = null;
         if($request->image)
             $image = upload_file($request->image, 'users', 'user');
         
