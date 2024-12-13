@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Auth
+Route::post('login'  , [AuthController::class, 'login']);
+Route::post('register' , [AuthController::class, 'register']);
+Route::post('verify-account' , [AuthController::class, 'verify_account']);
+Route::post('logout', [AuthController::class, 'logout']);
+
+Route::put('user', [AuthController::class, 'edit_profile']);
+Route::get('user', [AuthController::class, 'get_profile']);
+Route::delete('user/delete_account', [AuthController::class, 'delete_user']);

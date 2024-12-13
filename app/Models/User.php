@@ -20,7 +20,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_country_id',
+        'phone',
+        'country_id',
+        'summary',
+        'image',
         'password',
+        'status',
     ];
 
     /**
@@ -41,4 +47,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function nationality()
+    {
+        return $this->hasOne(Country::class, 'id', 'country_id');
+    }
+
+    public function phone_country()
+    {
+        return $this->hasOne(Country::class, 'id', 'phone_country_id');
+    }
 }
