@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('country_id')->nullable()->constrained('countries');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('email')->nullable()->unique();
+            $table->string('password')->nullable();
             $table->foreignId('phone_country_id')->nullable()->constrained('countries');
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
-            $table->text('summary')->nullable();
+            $table->text('bio')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('has_account');
             $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->rememberToken();

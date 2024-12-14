@@ -791,13 +791,18 @@
                             "schema": {
                                 "required": [
                                     "name",
-                                    "email",
-                                    "password",
                                     "role_id"
                                 ],
                                 "properties": {
                                     "name": {
                                         "type": "string"
+                                    },
+                                    "has_account": {
+                                        "type": "integer",
+                                        "enum": [
+                                            "1",
+                                            "0"
+                                        ]
                                     },
                                     "email": {
                                         "type": "string",
@@ -818,7 +823,7 @@
                                     "country_id": {
                                         "type": "integer"
                                     },
-                                    "summary": {
+                                    "bio": {
                                         "type": "string"
                                     },
                                     "image": {
@@ -896,8 +901,6 @@
                             "schema": {
                                 "required": [
                                     "name",
-                                    "email",
-                                    "phone",
                                     "role_id"
                                 ],
                                 "properties": {
@@ -917,7 +920,7 @@
                                     "country_id": {
                                         "type": "integer"
                                     },
-                                    "summary": {
+                                    "bio": {
                                         "type": "string"
                                     },
                                     "image": {
@@ -1179,7 +1182,7 @@
                                     "country_id": {
                                         "type": "integer"
                                     },
-                                    "summary": {
+                                    "bio": {
                                         "type": "string"
                                     },
                                     "image": {
@@ -1245,6 +1248,94 @@
                     }
                 ]
             }
+        },
+        "/countries": {
+            "get": {
+                "tags": [
+                    "User - Resources"
+                ],
+                "description": "Get countries",
+                "operationId": "get_countries",
+                "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/occasions": {
+            "get": {
+                "tags": [
+                    "User - Resources"
+                ],
+                "description": "Get occasions",
+                "operationId": "get_occasions",
+                "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -1267,6 +1358,10 @@
         {
             "name": "User - Auth",
             "description": "User - Auth"
+        },
+        {
+            "name": "User - Resources",
+            "description": "User - Resources"
         }
     ],
     "components": {

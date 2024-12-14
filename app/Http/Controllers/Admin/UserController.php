@@ -161,15 +161,16 @@ class UserController extends Controller
      *       @OA\MediaType(
      *           mediaType="multipart/form-data",
      *           @OA\Schema(
-     *              required={"name","email","password","role_id"},
+     *              required={"name","role_id"},
      *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="has_account", type="integer", enum={"1","0"}),
      *              @OA\Property(property="email",format="email", type="string"),
      *              @OA\Property(property="password", type="string"),
      *              @OA\Property(property="password_confirmation", type="string"),
      *              @OA\Property(property="phone_country_id", type="integer"),
      *              @OA\Property(property="phone", type="string"),
      *              @OA\Property(property="country_id", type="integer"),
-     *              @OA\Property(property="summary", type="string"),
+     *              @OA\Property(property="bio", type="string"),
      *              @OA\Property(property="image", type="file"),
      *              @OA\Property(property="role_id", type="integer"),
      *           )
@@ -185,18 +186,19 @@ class UserController extends Controller
     {
         $request->validate([
             'name'              => ['required', 'string'],
-            'email'             => ['required', 'string', 'email', 'unique:users'],
+            'has_account'       => ['required', 'boolean'],
+            'email'             => ['required_with:password', 'string', 'email', 'unique:users'],
             'phone_country_id'  => ['integer', 'exists:countries,id'],
-            'phone'             => ['required', 'size:8', 'unique:users'],
-            'password'          => ['required', 'string', 'min:6', 'confirmed'],
+            'phone'             => ['size:8', 'unique:users'],
+            'password'          => ['required_with:email', 'string', 'min:6', 'confirmed'],
             'country_id'        => ['integer', 'exists:countries,id'],
-            'summary'           => ['string'],
+            'bio'               => ['string'],
             'image'             => ['image'],
             'role_id'           => ['required', 'integer', 'exists:roles,id']
         ]);
 
         $verified = null;
-        if(in_array($request->role_id, [2, 3]))
+        if(!in_array($request->role_id, [2, 3]))
             $verified = now();
 
         $image = null;
@@ -205,12 +207,13 @@ class UserController extends Controller
 
         $user = User::create([
             'name'               => $request->name,
+            'has_account'        => $request->has_account,
             'email'              => $request->email,
             'phone_country_id'   => $request->phone_country_id,
             'phone'              => $request->phone,
             'country_id'         => $request->country_id,
-            'summary'            => $request->summary,
-            'password'           => Hash::make($request->password),
+            'bio'                => $request->bio,
+            'password'           => ($request->password)?Hash::make($request->password):null,
             'email_verified_at'  => $verified,
             'image'              => $image,
         ]);
@@ -262,13 +265,13 @@ class UserController extends Controller
      *     @OA\MediaType(
      *       mediaType="multipart/form-data",
      *       @OA\Schema(
-     *              required={"name","email","phone","role_id"},
+     *              required={"name","role_id"},
      *              @OA\Property(property="name", type="string"),
      *              @OA\Property(property="email",format="email", type="string"),
      *              @OA\Property(property="phone_country_id", type="integer"),
      *              @OA\Property(property="phone", type="string"),
      *              @OA\Property(property="country_id", type="integer"),
-     *              @OA\Property(property="summary", type="string"),
+     *              @OA\Property(property="bio", type="string"),
      *              @OA\Property(property="image", type="file"),
      *              @OA\Property(property="role_id", type="integer"),
      *         @OA\Property(property="_method", type="string", format="string", example="PUT"),
@@ -285,11 +288,11 @@ class UserController extends Controller
     {
         $request->validate([
             'name'                  => ['required', 'string'],
-            'email'                 => ['required', 'string', 'email', Rule::unique('users', 'email')->ignore($user->id)],
+            'email'                 => ['string', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             'phone_country_id'      => ['integer', 'exists:countries,id'],
-            'phone'                 => ['required', 'size:8', Rule::unique('users', 'phone')->ignore($user->id)],
+            'phone'                 => ['size:8', Rule::unique('users', 'phone')->ignore($user->id)],
             'country_id'            => ['integer', 'exists:countries,id'],
-            'summary'               => ['string'],
+            'bio'                   => ['string'],
             'image'                 => [''],
             'role_id'               => ['exists:roles,id'],
         ]);
@@ -312,12 +315,8 @@ class UserController extends Controller
         $user->phone_country_id = $request->phone_country_id;
         $user->phone = $request->phone;
         $user->country_id = $request->country_id;
-        $user->summary = $request->summary;
+        $user->bio = $request->bio;
         $user->image = $image;
-
-        if($request->password){
-            $user->password = Hash::make($request->password);
-        }
 
         $user->save();
 

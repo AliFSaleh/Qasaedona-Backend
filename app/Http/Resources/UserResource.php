@@ -22,9 +22,10 @@ class UserResource extends JsonResource
             'phone_country'     => new CountryResource($this->whenLoaded('phone_country')), 
             'phone'             => $this->phone, 
             'image'             => $this->image, 
-            'summary'           => $this->summary, 
+            'bio'               => $this->bio, 
+            'has_account'       => $this->has_account,
             'status'            => $this->status,
-            'role'                  => $this->roleModel(),
+            'role'              => $this->roleModel(),
         ];
     }
 }

@@ -156,7 +156,7 @@ class AuthController extends Controller
      *              @OA\Property(property="phone_country_id", type="integer"),
      *              @OA\Property(property="phone", type="string"),
      *              @OA\Property(property="country_id", type="integer"),
-     *              @OA\Property(property="summary", type="string"),
+     *              @OA\Property(property="bio", type="string"),
      *              @OA\Property(property="image", type="file"),
      *              @OA\Property(property="_method", type="string", format="string", example="PUT"),
      *           )
@@ -178,7 +178,7 @@ class AuthController extends Controller
             'phone_country_id'      => ['integer', 'exists:countries,id'],
             'phone'                 => ['required', 'size:8', Rule::unique('users', 'phone')->ignore($user->id)],
             'country_id'            => ['integer', 'exists:countries,id'],
-            'summary'               => ['string'],
+            'bio'               => ['string'],
             'image'                 => ['image'],
             // 'email'               => ['required', 'string', 'email', Rule::unique('users', 'email')->ignore($user->id)],
         ]);
@@ -191,7 +191,7 @@ class AuthController extends Controller
         $user->phone_country_id = $request->phone_country_id;
         $user->phone = $request->phone;
         $user->country_id = $request->country_id;
-        $user->summary = $request->summary;
+        $user->bio = $request->bio;
         $user->image = $image;
 
         $user->save();

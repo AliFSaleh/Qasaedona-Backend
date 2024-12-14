@@ -25,9 +25,10 @@ class User extends Authenticatable
         'phone_country_id',
         'phone',
         'country_id',
-        'summary',
+        'bio',
         'image',
         'password',
+        'has_account',
         'status',
     ];
 
