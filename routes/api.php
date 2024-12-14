@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,7 @@ Route::post('logout', [AuthController::class, 'logout']);
 Route::put('user', [AuthController::class, 'edit_profile']);
 Route::get('user', [AuthController::class, 'get_profile']);
 Route::delete('user/delete_account', [AuthController::class, 'delete_user']);
+
+// resources
+Route::get('countries', [ResourceController::class, 'get_countries']);
+Route::get('occasions', [ResourceController::class, 'get_occasions']);

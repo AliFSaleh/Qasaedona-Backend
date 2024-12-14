@@ -92,7 +92,7 @@ class OccasionController extends Controller
                 if (is_numeric($request->q))
                     $query->where('id', $request->q);
         
-                $query->orWhereIn('title', 'LIKE', '%'.$request->q.'%');
+                $query->orWhere('title', 'LIKE', '%'.$request->q.'%');
             });
         }
 
