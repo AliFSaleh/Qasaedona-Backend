@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OccasionController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -26,3 +27,8 @@ Route::apiResource('roles', RoleController::class);
 
 // users
 Route::apiResource('users' , UserController::class);
+
+// occasions
+Route::apiResource('occasions' , OccasionController::class);
+Route::get('occasions/export/{type}', [OccasionController::class, 'export']);
+Route::post('occasions/{occasion}/activate', [OccasionController::class, 'occasion_status_toggle']);
