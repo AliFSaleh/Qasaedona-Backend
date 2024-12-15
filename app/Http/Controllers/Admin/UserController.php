@@ -58,6 +58,18 @@ class UserController extends Controller
      *   ),
      * @OA\Parameter(
      *     in="query",
+     *     name="profile_status",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *     in="query",
+     *     name="has_account",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *     in="query",
      *     name="start_date",
      *     required=false,
      *     @OA\Schema(type="date")
@@ -100,6 +112,8 @@ class UserController extends Controller
         $request->validate([
             'q'                   => ['string'],
             'role_id'             => ['exists:roles,id'],
+            'profile_status'      => ['integer', 'in:1,0'],
+            'has_account'         => ['integer', 'in:1,0'],
             'status'              => ['integer', 'in:1,0'],
             'start_date'          => ['date_format:Y-m-d'],
             'end_date'            => ['date_format:Y-m-d'],
@@ -116,6 +130,18 @@ class UserController extends Controller
             $q->where('status', true);
         }
 
+        if($request->profile_status === '0'){
+            $q->where('profile_status', false);
+        }else if ($request->profile_status === '1') {
+            $q->where('profile_status', true);
+        }
+
+        if($request->has_account === '0'){
+            $q->where('has_account', false);
+        }else if ($request->has_account === '1') {
+            $q->where('has_account', true);
+        }
+
         if($request->start_date)
             $q->where('created_at','>=', $request->start_date);
         if($request->end_date)
@@ -124,8 +150,6 @@ class UserController extends Controller
         if ($request->q) {
             $q->where(function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->q . '%')
-                        ->orWhere('email', 'like', '%' . $request->q . '%')
-                        ->orWhere('phone', 'like', '%' . $request->q . '%')
                         ->orWhere('id', $request->q);
             });
         }
@@ -349,6 +373,7 @@ class UserController extends Controller
     */
     public function destroy(User $user)
     {
+        //TODO:: delete all associated poems
         $user->delete();
 
         return response()->json(null,204);
