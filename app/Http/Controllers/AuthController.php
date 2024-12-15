@@ -54,10 +54,10 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'name'        => $request->name,
-            'email'            => $request->email,
-            'phone'            => $request->phone,
-            'password'         => Hash::make($request->password),
+            'name'          => $request->name,
+            'email'         => $request->email,
+            'phone'         => $request->phone,
+            'password'      => Hash::make($request->password),
         ]);
         $user->assignRole('user');
 
@@ -178,14 +178,21 @@ class AuthController extends Controller
             'phone_country_id'      => ['integer', 'exists:countries,id'],
             'phone'                 => ['required', 'size:8', Rule::unique('users', 'phone')->ignore($user->id)],
             'country_id'            => ['integer', 'exists:countries,id'],
-            'bio'               => ['string'],
-            'image'                 => ['image'],
+            'bio'                   => ['string'],
+            'image'                 => [''],
             // 'email'               => ['required', 'string', 'email', Rule::unique('users', 'email')->ignore($user->id)],
         ]);
         
         $image = null;
-        if($request->image)
-            $image = upload_file($request->image, 'users', 'user');
+        if($request->image){
+            if($request->image == $user->image){
+                $image = $user->image;
+            }else{
+                if(!is_file($request->image))
+                    throw ValidationException::withMessages(['image' => __('error_messages.Image should be a file')]);
+                $image = upload_file($request->image, 'users', 'user');
+            }
+        }
         
         $user->name = $request->name;
         $user->phone_country_id = $request->phone_country_id;

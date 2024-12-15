@@ -720,6 +720,30 @@
                         }
                     },
                     {
+                        "name": "profile_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "has_account",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
                         "name": "start_date",
                         "in": "query",
                         "required": false,
@@ -1059,6 +1083,35 @@
                 ]
             }
         },
+        "/admin/users/{id}/profile_activate": {
+            "post": {
+                "tags": [
+                    "Admin - Users"
+                ],
+                "description": "activate the user profile.",
+                "operationId": "c201a3994007e33b0551b87677c03a53",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/register": {
             "post": {
                 "tags": [
@@ -1249,6 +1302,112 @@
                 ]
             }
         },
+        "/verify-request": {
+            "post": {
+                "tags": [
+                    "User - Join as boet"
+                ],
+                "description": "Send verify email and create account if you are a guest.",
+                "operationId": "8a9fb8f94a1e2e1d90c8f0807c3ab5cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    },
+                                    "phone_country_id": {
+                                        "type": "integer"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "country_id": {
+                                        "type": "integer"
+                                    },
+                                    "bio": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/verify-account": {
+            "post": {
+                "tags": [
+                    "User - Join as boet"
+                ],
+                "description": "Confirm the code.",
+                "operationId": "17fa1dbf4e739e0c5075b4e9f63394c7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/join-requests": {
+            "post": {
+                "tags": [
+                    "User - Join as boet"
+                ],
+                "description": "Create the join request.",
+                "operationId": "7333f8a31d4548c590c5cc23281a1687",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/countries": {
             "get": {
                 "tags": [
@@ -1358,6 +1517,10 @@
         {
             "name": "User - Auth",
             "description": "User - Auth"
+        },
+        {
+            "name": "User - Join as boet",
+            "description": "User - Join as boet"
         },
         {
             "name": "User - Resources",

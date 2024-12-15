@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\ResourceController;
 
 /*
@@ -18,12 +19,16 @@ use App\Http\Controllers\ResourceController;
 //Auth
 Route::post('login'  , [AuthController::class, 'login']);
 Route::post('register' , [AuthController::class, 'register']);
-Route::post('verify-account' , [AuthController::class, 'verify_account']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 Route::put('user', [AuthController::class, 'edit_profile']);
 Route::get('user', [AuthController::class, 'get_profile']);
 Route::delete('user/delete_account', [AuthController::class, 'delete_user']);
+
+// join us as a poet
+Route::post('verify-request', [JoinRequestController::class, 'verify_request']);
+Route::post('verify-account' , [JoinRequestController::class, 'verify_account']);
+Route::post('join-requests', [JoinRequestController::class, 'join_request']);
 
 // resources
 Route::get('countries', [ResourceController::class, 'get_countries']);

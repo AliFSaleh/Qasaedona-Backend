@@ -223,8 +223,11 @@ class UserController extends Controller
         ]);
 
         $verified = null;
-        if(!in_array($request->role_id, [2, 3]))
+        $is_verified = false;
+        if(!in_array($request->role_id, [2, 3])){
+            $is_verified = true;
             $verified = now();
+        }
 
         $image = null;
         if($request->image)
@@ -239,6 +242,7 @@ class UserController extends Controller
             'country_id'         => $request->country_id,
             'bio'                => $request->bio,
             'password'           => ($request->password)?Hash::make($request->password):null,
+            'is_verified'        => $is_verified,
             'email_verified_at'  => $verified,
             'image'              => $image,
         ]);
