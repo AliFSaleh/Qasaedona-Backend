@@ -22,6 +22,7 @@ use App\Models\Product;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class UserController extends Controller
 {
@@ -388,6 +389,10 @@ class UserController extends Controller
         $request->validate([
             'password'         => ['required', 'string', 'min:6', 'confirmed'],
         ]);
+
+        if(!$user->has_account)
+            throw new BadRequestHttpException(__('error_messages.Sorry, User not have an account'));
+
         $user->update(['password'  => Hash::make($request->password),]);
         return response()->json(new UserResource($user), 200);
     }
@@ -419,4 +424,73 @@ class UserController extends Controller
         $user->update(['status' => !$user->status]);
         return response()->json(new UserResource($user), 200);
     }
+
+    /**
+     * @OA\Post(
+     * path="/admin/users/{id}/profile_activate",
+     * description="activate the user profile.",
+     *   @OA\Parameter(
+     *     in="path",
+     *     name="id",
+     *     required=true,
+     *     @OA\Schema(type="string"),
+     *   ),
+     * tags={"Admin - Users"},
+     * security={{"bearer_token": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="successful operation",
+     *     ),
+     * )
+     * )
+    */
+    public function user_profile_status_toggle(User $user)
+    {
+        $user->update(['profile_status' => !$user->profile_status]);
+        return response()->json(new UserResource($user), 200);
+    }
+
+    // public function export(Request $request, $type)
+    // {
+    //     $q = User::query();
+
+    //     if($request->status === '0'){
+    //         $q->where('status', false);
+    //     }else if ($request->status === '1') {
+    //         $q->where('status', true);
+    //     }
+
+    //     if($request->start_date)
+    //         $q->where('created_at','>=', $request->start_date);
+    //     if($request->end_date)
+    //         $q->where('created_at','<=', $request->end_date);
+
+    //     if ($request->q) {
+    //         $q->where(function ($query) use ($request) {
+    //             $query->where('full_name', 'like', '%' . $request->q . '%')
+    //                     ->orWhere('email', 'like', '%' . $request->q . '%')
+    //                     ->orWhere('phone', 'like', '%' . $request->q . '%')
+    //                     ->orWhere('id', $request->q);
+    //         });
+    //     }
+        
+    //     if($request->role_id){
+    //         $user_ids = DB::table('model_has_roles')->where('model_type', User::class)
+    //                         ->where('role_id', $request->role_id)->pluck('model_id');
+    //         $q->whereIn('id', $user_ids);
+    //     }
+
+    //     if($request->type == 'employee'){
+    //         $user_ids = DB::table('model_has_roles')->where('model_type', User::class)
+    //                     ->where('role_id', '!=', 2)->pluck('model_id');
+    //         $q->whereIn('id', $user_ids);
+    //     }
+    //     $users = $q->get();
+    //     if ($type == 'xlsx') {
+    //         return Excel::download(new UserExport($users), 'users.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    //     } else if ($type == 'csv') {
+    //         return Excel::download(new UserExport($users), 'users.csv', \Maatwebsite\Excel\Excel::CSV);
+    //     } else
+    //         return Excel::download(new UserExport($users), 'users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    // }
 }

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('has_account');
+            $table->boolean('profile_status')->default(true);
             $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->rememberToken();

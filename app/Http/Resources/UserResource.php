@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'image'             => $this->image, 
             'bio'               => $this->bio, 
             'has_account'       => $this->has_account,
+            'profile_status'    => $this->profile_status,
             'status'            => $this->status,
             'role'              => $this->roleModel(),
         ];

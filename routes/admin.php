@@ -27,6 +27,10 @@ Route::apiResource('roles', RoleController::class);
 
 // users
 Route::apiResource('users' , UserController::class);
+Route::get('users/export/{type}', [UserController::class, 'export']);
+Route::post('users/{user}/reset_password', [UserController::class, 'reset_password']);
+Route::post('users/{user}/profile_activate', [UserController::class, 'user_profile_status_toggle']);
+Route::post('users/{user}/activate', [UserController::class, 'user_status_toggle']);
 
 // occasions
 Route::apiResource('occasions' , OccasionController::class);
