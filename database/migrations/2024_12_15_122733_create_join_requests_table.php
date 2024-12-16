@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('join_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->enum('status', ['pending','accepted','rejeacted'])->default('pending');
+            $table->dateTime('date');
+            $table->enum('status', ['pending','approved','rejected'])->default('pending');
             $table->timestamps();
         });
     }

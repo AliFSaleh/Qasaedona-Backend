@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'email'             => 'admin@gmail.com',
             'password'          => Hash::make('password'),
             'has_account'       => true,
+            'is_verified'       => true,
             'email_verified_at' => now(),
         ]);
         $admin->assignRole('admin');
@@ -35,6 +36,7 @@ class UserSeeder extends Seeder
             'email'             => 'ali@gmail.com',
             'password'          => Hash::make('password'),
             'has_account'       => true,
+            'is_verified'       => true,
             'email_verified_at' => now(),
         ]);
         $user_1->assignRole('user');
@@ -45,6 +47,7 @@ class UserSeeder extends Seeder
             'email'             => 'wajdi@gmail.com',
             'password'          => Hash::make('password'),
             'has_account'       => true,
+            'is_verified'       => true,
             'email_verified_at' => now(),
         ]);
         $user_2->assignRole('user');
@@ -55,6 +58,7 @@ class UserSeeder extends Seeder
             'email'             => 'mohamad@gmail.com',
             'password'          => Hash::make('password'),
             'has_account'       => true,
+            'is_verified'       => true,
             'email_verified_at' => now(),
         ]);
         $user_3->assignRole('user');
@@ -69,6 +73,7 @@ class UserSeeder extends Seeder
             'phone'             => 0566337511,
             'country_id'        => 212,
             'has_account'       => true,
+            'is_verified'       => true,
             'email_verified_at' => now(),
         ]);
         $user_4->assignRole('poet');
@@ -91,6 +96,7 @@ class UserSeeder extends Seeder
             'phone'             => 0566337522,
             'country_id'        => 212,
             'has_account'       => false,
+            'is_verified'       => false,
             'email_verified_at' => null,
         ]);
         $user_5->assignRole('poet');

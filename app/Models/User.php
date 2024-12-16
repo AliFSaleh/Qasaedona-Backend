@@ -68,4 +68,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Country::class, 'id', 'phone_country_id');
     }
+
+    public function join_requests()
+    {
+        return $this->hasMany(JoinRequest::class);
+    }
+
+    public function last_join_request(){
+        return $this->hasOne(JoinRequest::class)->ofMany([
+            'id' => 'max',
+        ], function ($query) {
+            //
+        });
+    }
 }

@@ -22,7 +22,7 @@ class OccasionController extends Controller
      * @OA\Get(
      * path="/admin/occasions",
      * description="Get all occasions",
-     * operationId="get_all_categories",
+     * operationId="get_all_occasions",
      * tags={"Admin - Occasions"},
      *   security={{"bearer_token": {} }},
      * @OA\Parameter(

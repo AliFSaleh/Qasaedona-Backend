@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\OccasionController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\PermissionController;
@@ -36,3 +37,9 @@ Route::post('users/{user}/activate', [UserController::class, 'user_status_toggle
 Route::apiResource('occasions' , OccasionController::class);
 Route::get('occasions/export/{type}', [OccasionController::class, 'export']);
 Route::post('occasions/{occasion}/activate', [OccasionController::class, 'occasion_status_toggle']);
+
+// join us as a poet
+Route::get('join_requests', [JoinRequestController::class, 'index']);
+Route::get('join_requests/export/{type}', [JoinRequestController::class, 'export']);
+Route::post('join_requests/{join_request}/approve', [JoinRequestController::class, 'approve']);
+Route::post('join_requests/{join_request}/reject', [JoinRequestController::class, 'reject']);

@@ -37,6 +37,11 @@ class PermissionSeeder extends Seeder
         if(!in_array('occasions.delete', $permissions))
             Permission::create(['name' => 'occasions.delete']);
 
+        if(!in_array('join_requests.read', $permissions))
+            Permission::create(['name' => 'join_requests.read']);
+        if(!in_array('join_requests.write', $permissions))
+            Permission::create(['name' => 'join_requests.write']);
+
         if(!Role::where('name', 'admin')->exists())
             Role::create([
                 'id'         => 1,

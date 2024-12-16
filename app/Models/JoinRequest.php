@@ -11,6 +11,7 @@ class JoinRequest extends Model
 
     protected $fillable = [
         'user_id',
+        'date',
         'status',
     ];
 

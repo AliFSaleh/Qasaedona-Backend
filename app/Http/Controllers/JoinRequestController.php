@@ -27,7 +27,7 @@ class JoinRequestController extends Controller
      * @OA\Post(
      * path="/verify-request",
      * description="Send verify email and create account if you are a guest.",
-     * tags={"User - Join as boet"},
+     * tags={"User - Join as Poet"},
      *   @OA\RequestBody(
      *       required=true,
      *       @OA\MediaType(
@@ -139,7 +139,7 @@ class JoinRequestController extends Controller
      * @OA\Post(
      * path="/verify-account",
      * description="Confirm the code.",
-     * tags={"User - Join as boet"},
+     * tags={"User - Join as Poet"},
      * security={{"bearer_token":{}}},
      *   @OA\RequestBody(
      *       required=true,
@@ -185,7 +185,7 @@ class JoinRequestController extends Controller
      * @OA\Post(
      * path="/join-requests",
      * description="Create the join request.",
-     * tags={"User - Join as boet"},
+     * tags={"User - Join as Poet"},
      * security={{"bearer_token":{}}},
      * @OA\Response(
      *    response=200,
@@ -197,6 +197,12 @@ class JoinRequestController extends Controller
     public function join_request()
     {
         $user = to_user(Auth::user());
+
+        if($user->last_join_request?->status == 'pending')
+            throw new BadRequestHttpException(__('error_messages.Sorry, You have a previous request being processed'));
+        if($user->last_join_request?->status == 'approved')
+            throw new BadRequestHttpException(__('error_messages.Sorry, You have a previous application that has been approved'));
+
         $date = Carbon::now()->format('Y-m-d');
         
         JoinRequest::create([

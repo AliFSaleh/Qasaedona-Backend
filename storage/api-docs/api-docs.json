@@ -13,13 +13,149 @@
         }
     ],
     "paths": {
+        "/admin/join_requests": {
+            "get": {
+                "tags": [
+                    "Admin - Join as Poet"
+                ],
+                "description": "Get all join_requests",
+                "operationId": "get_all_join_requests",
+                "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "pending",
+                                "approved",
+                                "rejected"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/admin/join_requests/{id}/approve": {
+            "post": {
+                "tags": [
+                    "Admin - Join as Poet"
+                ],
+                "description": "approve the request.",
+                "operationId": "5cfe63a9918c545bd44fbc4bba53f546",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/admin/join_requests/{id}/reject": {
+            "post": {
+                "tags": [
+                    "Admin - Join as Poet"
+                ],
+                "description": "reject the request.",
+                "operationId": "e12c43ef44cf5c5a346701d56c89c825",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/admin/occasions": {
             "get": {
                 "tags": [
                     "Admin - Occasions"
                 ],
                 "description": "Get all occasions",
-                "operationId": "get_all_categories",
+                "operationId": "get_all_occasions",
                 "parameters": [
                     {
                         "name": "with_paginate",
@@ -1305,7 +1441,7 @@
         "/verify-request": {
             "post": {
                 "tags": [
-                    "User - Join as boet"
+                    "User - Join as Poet"
                 ],
                 "description": "Send verify email and create account if you are a guest.",
                 "operationId": "8a9fb8f94a1e2e1d90c8f0807c3ab5cf",
@@ -1358,7 +1494,7 @@
         "/verify-account": {
             "post": {
                 "tags": [
-                    "User - Join as boet"
+                    "User - Join as Poet"
                 ],
                 "description": "Confirm the code.",
                 "operationId": "17fa1dbf4e739e0c5075b4e9f63394c7",
@@ -1392,7 +1528,7 @@
         "/join-requests": {
             "post": {
                 "tags": [
-                    "User - Join as boet"
+                    "User - Join as Poet"
                 ],
                 "description": "Create the join request.",
                 "operationId": "7333f8a31d4548c590c5cc23281a1687",
@@ -1499,6 +1635,10 @@
     },
     "tags": [
         {
+            "name": "Admin - Join as Poet",
+            "description": "Admin - Join as Poet"
+        },
+        {
             "name": "Admin - Occasions",
             "description": "Admin - Occasions"
         },
@@ -1519,8 +1659,8 @@
             "description": "User - Auth"
         },
         {
-            "name": "User - Join as boet",
-            "description": "User - Join as boet"
+            "name": "User - Join as Poet",
+            "description": "User - Join as Poet"
         },
         {
             "name": "User - Resources",

@@ -105,6 +105,7 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember??false)) {
             $user = to_user(Auth::user());
             $token = $user->createToken('Sanctum', [])->plainTextToken;
+            $user->load(['last_join_request']);
             
             return response()->json([
                 'user' => new UserResource($user),
