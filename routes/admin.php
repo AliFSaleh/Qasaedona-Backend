@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\OccasionController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -54,3 +55,5 @@ Route::post('rawadeds/{rawaded}/activate', [RawadedController::class, 'rawaded_s
 
 // poem type
 Route::apiResource('poem_types' , PoemTypeController::class);
+// poem categories
+Route::apiResource('categories' , CategoryController::class);
