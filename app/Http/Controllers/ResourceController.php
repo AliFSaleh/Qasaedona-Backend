@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CountryResource;
 use App\Http\Resources\OccasionResource;
 use App\Http\Resources\PoemTypeResource;
 use App\Http\Resources\RawadedResource;
+use App\Models\Category;
 use App\Models\Country;
 use App\Models\Occasion;
 use App\Models\PoemType;
@@ -247,5 +249,56 @@ class ResourceController extends Controller
             $poem_types = $q->paginate($request->per_page ?? 10);
 
         return PoemTypeResource::collection($poem_types);
+    }
+    
+    /**
+     * @OA\Get(
+     * path="/categories",
+     * description="Get categories",
+     * operationId="get_categories",
+     * tags={"User - Resources"},
+     * @OA\Parameter(
+     *     in="query",
+     *     name="with_paginate",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="per_page",
+     *    required=false,
+     *    @OA\Schema(type="integer"),
+     * ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="q",
+     *    required=false,
+     *    @OA\Schema(type="string"),
+     * ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  )
+     *  )
+    */
+    public function get_categories(Request $request)
+    {
+        $request->validate([
+            'with_paginate'      => ['integer', 'in:0,1'],
+            'per_page'           => ['integer', 'min:1'],
+            'q'                  => ['string']
+        ]);
+
+        $q = Category::query()->latest();
+
+        if($request->q)
+            $q->where('name', 'LIKE', '%'.$request->q.'%');
+
+        if($request->with_paginate === '0')
+            $categories = $q->get();
+        else
+            $categories = $q->paginate($request->per_page ?? 10);
+
+        return CategoryResource::collection($categories);
     }
 }
