@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\OccasionController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PoemTypeController;
 use App\Http\Controllers\Admin\RawadedController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,3 +52,5 @@ Route::get('rawadeds/export/{type}', [RawadedController::class, 'export']);
 Route::post('rawadeds/{rawaded}/featured', [RawadedController::class, 'rawaded_feature_toggle']);
 Route::post('rawadeds/{rawaded}/activate', [RawadedController::class, 'rawaded_status_toggle']);
 
+// poem type
+Route::apiResource('poem_types' , PoemTypeController::class);

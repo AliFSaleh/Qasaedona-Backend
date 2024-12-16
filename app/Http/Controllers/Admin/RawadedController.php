@@ -213,7 +213,7 @@ class RawadedController extends Controller
     public function update(Request $request, Rawaded $rawaded)
     {
         $request->validate([
-            'name'           => ['required', 'array', translation_rule()],
+            'name'           => ['required', 'string'],
             'image'          => ['required'],
         ]);
 
