@@ -37,6 +37,13 @@ class PermissionSeeder extends Seeder
         if(!in_array('occasions.delete', $permissions))
             Permission::create(['name' => 'occasions.delete']);
 
+        if(!in_array('rawadeds.read', $permissions))
+            Permission::create(['name' => 'rawadeds.read']);
+        if(!in_array('rawadeds.write', $permissions))
+            Permission::create(['name' => 'rawadeds.write']);
+        if(!in_array('rawadeds.delete', $permissions))
+            Permission::create(['name' => 'rawadeds.delete']);
+
         if(!in_array('join_requests.read', $permissions))
             Permission::create(['name' => 'join_requests.read']);
         if(!in_array('join_requests.write', $permissions))

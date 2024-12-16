@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\OccasionController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RawadedController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +44,10 @@ Route::get('join_requests', [JoinRequestController::class, 'index']);
 Route::get('join_requests/export/{type}', [JoinRequestController::class, 'export']);
 Route::post('join_requests/{join_request}/approve', [JoinRequestController::class, 'approve']);
 Route::post('join_requests/{join_request}/reject', [JoinRequestController::class, 'reject']);
+
+// rawaded
+Route::apiResource('rawadeds' , RawadedController::class);
+Route::get('rawadeds/export/{type}', [RawadedController::class, 'export']);
+Route::post('rawadeds/{rawaded}/featured', [RawadedController::class, 'rawaded_feature_toggle']);
+Route::post('rawadeds/{rawaded}/activate', [RawadedController::class, 'rawaded_status_toggle']);
+
