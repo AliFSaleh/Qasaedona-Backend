@@ -2644,6 +2644,50 @@
                     }
                 }
             }
+        },
+        "/languages": {
+            "get": {
+                "tags": [
+                    "User - Languages"
+                ],
+                "description": "Get languages",
+                "operationId": "get_languages",
+                "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -2694,6 +2738,10 @@
         {
             "name": "User - Resources",
             "description": "User - Resources"
+        },
+        {
+            "name": "User - Languages",
+            "description": "User - Languages"
         }
     ],
     "components": {

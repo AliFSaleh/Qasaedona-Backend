@@ -36,3 +36,4 @@ Route::get('occasions', [ResourceController::class, 'get_occasions']);
 Route::get('rawadeds', [ResourceController::class, 'get_rawadeds']);
 Route::get('poem_types', [ResourceController::class, 'get_poem_types']);
 Route::get('categories', [ResourceController::class, 'get_categories']);
+Route::get('languages', [ResourceController::class, 'get_languages']);

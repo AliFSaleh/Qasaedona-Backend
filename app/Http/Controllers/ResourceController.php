@@ -8,6 +8,7 @@ use App\Http\Resources\PoemAttributeResource;
 use App\Http\Resources\RawadedResource;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Language;
 use App\Models\Occasion;
 use App\Models\PoemType;
 use App\Models\Rawaded;
@@ -299,5 +300,56 @@ class ResourceController extends Controller
             $categories = $q->paginate($request->per_page ?? 10);
 
         return PoemAttributeResource::collection($categories);
+    }
+    
+    /**
+     * @OA\Get(
+     * path="/languages",
+     * description="Get languages",
+     * operationId="get_languages",
+     * tags={"User - Languages"},
+     * @OA\Parameter(
+     *     in="query",
+     *     name="with_paginate",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="per_page",
+     *    required=false,
+     *    @OA\Schema(type="integer"),
+     * ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="q",
+     *    required=false,
+     *    @OA\Schema(type="string"),
+     * ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  )
+     *  )
+    */
+    public function get_languages(Request $request)
+    {
+        $request->validate([
+            'with_paginate'      => ['integer', 'in:0,1'],
+            'per_page'           => ['integer', 'min:1'],
+            'q'                  => ['string']
+        ]);
+
+        $q = Language::query()->latest();
+
+        if($request->q)
+            $q->where('name', 'LIKE', '%'.$request->q.'%');
+
+        if($request->with_paginate === '0')
+            $languages = $q->get();
+        else
+            $languages = $q->paginate($request->per_page ?? 10);
+
+        return PoemAttributeResource::collection($languages);
     }
 }
