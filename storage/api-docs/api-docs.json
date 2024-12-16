@@ -342,6 +342,199 @@
                 ]
             }
         },
+        "/admin/languages": {
+            "get": {
+                "tags": [
+                    "Admin - Languages"
+                ],
+                "description": "Get all languages",
+                "operationId": "get_all_languages",
+                "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin - Languages"
+                ],
+                "description": "Add new language.",
+                "operationId": "51295b1ad585619402e6d7244db8adb2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/admin/languages/{id}": {
+            "get": {
+                "tags": [
+                    "Admin - Languages"
+                ],
+                "description": "Get language information.",
+                "operationId": "show_languages",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin - Languages"
+                ],
+                "description": "Edit language.",
+                "operationId": "502713ccfda5f9d1700c6af91b8193fc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "_method": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "PUT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin - Languages"
+                ],
+                "description": "Delete entered language.",
+                "operationId": "delete_language",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/admin/occasions": {
             "get": {
                 "tags": [
@@ -2461,6 +2654,10 @@
         {
             "name": "Admin - Join as Poet",
             "description": "Admin - Join as Poet"
+        },
+        {
+            "name": "Admin - Languages",
+            "description": "Admin - Languages"
         },
         {
             "name": "Admin - Occasions",

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CountryResource;
 use App\Http\Resources\OccasionResource;
-use App\Http\Resources\PoemTypeResource;
+use App\Http\Resources\PoemAttributeResource;
 use App\Http\Resources\RawadedResource;
 use App\Models\Category;
 use App\Models\Country;
@@ -248,7 +247,7 @@ class ResourceController extends Controller
         else
             $poem_types = $q->paginate($request->per_page ?? 10);
 
-        return PoemTypeResource::collection($poem_types);
+        return PoemAttributeResource::collection($poem_types);
     }
     
     /**
@@ -299,6 +298,6 @@ class ResourceController extends Controller
         else
             $categories = $q->paginate($request->per_page ?? 10);
 
-        return CategoryResource::collection($categories);
+        return PoemAttributeResource::collection($categories);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PoemTypeResource;
+use App\Http\Resources\PoemAttributeResource;
 use App\Models\PoemType;
 use Illuminate\Http\Request;
 
@@ -73,7 +73,7 @@ class PoemTypeController extends Controller
         else
             $poems = $q->paginate($request->per_page ?? 10);
 
-        return PoemTypeResource::collection($poems);
+        return PoemAttributeResource::collection($poems);
     }
 
     /**
@@ -109,7 +109,7 @@ class PoemTypeController extends Controller
             'name'          => $request->name,
         ]);
 
-        return response()->json(new PoemTypeResource($poem_type), 200);
+        return response()->json(new PoemAttributeResource($poem_type), 200);
     }
 
     /**
@@ -134,7 +134,7 @@ class PoemTypeController extends Controller
     */
     public function show(PoemType $poem_type)
     {
-        return response()->json(new PoemTypeResource($poem_type), 200);
+        return response()->json(new PoemAttributeResource($poem_type), 200);
     }
 
     /**
@@ -176,7 +176,7 @@ class PoemTypeController extends Controller
             'name'         => $request->name,
         ]);
 
-        return response()->json(new PoemTypeResource($poem_type), 200);
+        return response()->json(new PoemAttributeResource($poem_type), 200);
     }
 
     /**
