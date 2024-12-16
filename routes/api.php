@@ -34,3 +34,4 @@ Route::post('join-requests', [JoinRequestController::class, 'join_request']);
 Route::get('countries', [ResourceController::class, 'get_countries']);
 Route::get('occasions', [ResourceController::class, 'get_occasions']);
 Route::get('rawadeds', [ResourceController::class, 'get_rawadeds']);
+Route::get('poem_types', [ResourceController::class, 'get_poem_types']);
