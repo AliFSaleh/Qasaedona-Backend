@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CountryResource;
 use App\Http\Resources\OccasionResource;
+use App\Http\Resources\RawadedResource;
 use App\Models\Country;
 use App\Models\Occasion;
+use App\Models\Rawaded;
 use Illuminate\Http\Request;
 use Mosab\Translation\Models\Translation;
 
@@ -127,5 +129,70 @@ class ResourceController extends Controller
             $occasions = $q->paginate($request->per_page ?? 10);
 
         return OccasionResource::collection($occasions);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/rawadeds",
+     * description="Get rawadeds",
+     * operationId="get_rawadeds",
+     * tags={"User - Resources"},
+     * @OA\Parameter(
+     *     in="query",
+     *     name="with_paginate",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *     in="query",
+     *     name="featured",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="per_page",
+     *    required=false,
+     *    @OA\Schema(type="integer"),
+     * ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="q",
+     *    required=false,
+     *    @OA\Schema(type="string"),
+     * ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  )
+     *  )
+    */
+    public function get_rawadeds(Request $request)
+    {
+        $request->validate([
+            'with_paginate'      => ['integer', 'in:0,1'],
+            'per_page'           => ['integer', 'min:1'],
+            'featured'           => ['integer', 'in:1,0'],
+            'q'                  => ['string']
+        ]);
+
+        $q = Rawaded::query()->latest();
+        $q->where('status', true);
+
+        if($request->q)
+            $q->where('name', 'LIKE', '%'.$request->q.'%');
+
+        if($request->featured === '0'){
+            $q->where('featured', false);
+        }else if ($request->featured === '1') {
+            $q->where('featured', true);
+        }
+
+        if($request->with_paginate === '0')
+            $rawadeds = $q->get();
+        else
+            $rawadeds = $q->paginate($request->per_page ?? 10);
+
+        return RawadedResource::collection($rawadeds);
     }
 }
