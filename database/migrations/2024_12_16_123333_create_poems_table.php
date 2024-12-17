@@ -24,7 +24,8 @@ return new class extends Migration
             $table->foreignId('occasion_id')->constrained('occasions');
             $table->text('body');
             $table->integer('audios_count')->default(0);
-            $table->boolean('status');
+            $table->enum('publish_status', ['pending', 'approved', 'rejected']);
+            $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

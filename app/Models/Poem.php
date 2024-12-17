@@ -22,6 +22,7 @@ class Poem extends Model
         'occasion_id',
         'body',
         'audios_count',
+        'publish_status',
         'status',
     ];
 

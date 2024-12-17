@@ -218,6 +218,7 @@ class PoemController extends Controller
                 'occasion_id'       => $request->occasion_id,
                 'body'              => $request->body,
                 'audios_count'      => count($request->audios),
+                'publish_status'    => 'approved',
                 'status'            => 1,
             ]);
 
