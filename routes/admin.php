@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\OccasionController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PoemTypeController;
 use App\Http\Controllers\Admin\RawadedController;
 use App\Http\Controllers\Admin\RoleController;
@@ -60,3 +61,7 @@ Route::apiResource('poem_types' , PoemTypeController::class);
 Route::apiResource('categories' , CategoryController::class);
 // poem languages
 Route::apiResource('languages' , LanguageController::class);
+
+// poems
+Route::apiResource('poems' , PoemController::class);
+Route::post('poems/{rawaded}/activate', [PoemController::class, 'poems_status_toggle']);
