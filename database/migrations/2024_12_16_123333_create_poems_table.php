@@ -26,6 +26,8 @@ return new class extends Migration
             $table->integer('audios_count')->default(0);
             $table->enum('publish_status', ['pending', 'approved', 'rejected']);
             $table->boolean('status')->default(true);
+            $table->foreignId('reject_reason_id')->nullable()->constrained('reject_reasons');
+            $table->string('custom_reject_reason')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

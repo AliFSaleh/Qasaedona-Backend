@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PoemTypeController;
 use App\Http\Controllers\Admin\RawadedController;
+use App\Http\Controllers\Admin\RejectReasonController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -61,6 +62,9 @@ Route::apiResource('poem_types' , PoemTypeController::class);
 Route::apiResource('categories' , CategoryController::class);
 // poem languages
 Route::apiResource('languages' , LanguageController::class);
+
+// reject reasons
+Route::apiResource('reject_reasons' , RejectReasonController::class);
 
 // poems
 Route::apiResource('poems' , PoemController::class);
