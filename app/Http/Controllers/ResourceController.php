@@ -6,6 +6,7 @@ use App\Http\Resources\CountryResource;
 use App\Http\Resources\LessonResource;
 use App\Http\Resources\OccasionResource;
 use App\Http\Resources\PoemAttributeResource;
+use App\Http\Resources\PoetryCollectionResource;
 use App\Http\Resources\RawadedResource;
 use App\Models\Category;
 use App\Models\Country;
@@ -13,6 +14,7 @@ use App\Models\Language;
 use App\Models\Lesson;
 use App\Models\Occasion;
 use App\Models\PoemType;
+use App\Models\PoetryCollection;
 use App\Models\Rawaded;
 use Illuminate\Http\Request;
 use Mosab\Translation\Models\Translation;
@@ -415,5 +417,67 @@ class ResourceController extends Controller
             $lessons = $q->paginate($request->per_page ?? 10);
 
         return LessonResource::collection($lessons);
+    }
+    
+    /**
+     * @OA\Get(
+     * path="/poetry_collections",
+     * description="Get poetry_collections",
+     * operationId="get_poetry_collections",
+     * tags={"User - Resources"},
+     * @OA\Parameter(
+     *    in="query",
+     *    name="poet_id",
+     *    required=false,
+     *    @OA\Schema(type="integer"),
+     * ),
+     * @OA\Parameter(
+     *     in="query",
+     *     name="with_paginate",
+     *     required=false,
+     *     @OA\Schema(type="integer",enum={0, 1})
+     *   ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="per_page",
+     *    required=false,
+     *    @OA\Schema(type="integer"),
+     * ),
+     * @OA\Parameter(
+     *    in="query",
+     *    name="q",
+     *    required=false,
+     *    @OA\Schema(type="string"),
+     * ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  )
+     *  )
+    */
+    public function get_poetry_collections(Request $request)
+    {
+        $request->validate([
+            'poet_id'           => ['integer', 'exists:users,id'],
+            'with_paginate'      => ['integer', 'in:0,1'],
+            'per_page'           => ['integer', 'min:1'],
+            'q'                  => ['string']
+        ]);
+
+        $q = PoetryCollection::query()->latest();
+        $q->where('status', true);
+
+        if($request->poet_id)
+            $q->where('poet_id', $request->poet_id);
+
+        if($request->q)
+            $q->where('title', 'LIKE', '%'.$request->q.'%');
+
+        if($request->with_paginate === '0')
+            $poetry_collections = $q->get();
+        else
+            $poetry_collections = $q->paginate($request->per_page ?? 10);
+
+        return PoetryCollectionResource::collection($poetry_collections);
     }
 }
