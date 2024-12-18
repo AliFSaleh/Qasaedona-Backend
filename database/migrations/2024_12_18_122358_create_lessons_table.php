@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('poetry_collections', function (Blueprint $table) {
+        Schema::create('lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('poet_id')->constrained('users');
+            $table->foreignId('poet_id')->nullable()->constrained('users');
             $table->text('title');
-            $table->text('description');
-            $table->integer('poems_count')->default(0);
+            $table->text('body');
             $table->boolean('status');
             $table->enum('publish_status', ['pending', 'approved', 'rejected']);
             $table->softDeletes();
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('poetry_collections');
+        Schema::dropIfExists('lessons');
     }
 };

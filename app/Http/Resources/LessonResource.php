@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PoetryCollectionResource extends JsonResource
+class LessonResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class PoetryCollectionResource extends JsonResource
             'id'            => $this->id,
             // 'created_by'    => $this->created_by,
             'title'         => $this->title,
-            'description'   => $this->description,
+            'body'          => $this->body,
             'status'        => $this->status,
             'poet'          => new UserResource($this->whenLoaded('poet')),
             'created_at'    => $this->created_at,

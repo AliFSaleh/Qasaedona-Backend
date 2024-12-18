@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\OccasionController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PoemController;
@@ -71,6 +72,10 @@ Route::apiResource('reject_reasons' , RejectReasonController::class);
 Route::apiResource('poems' , PoemController::class);
 Route::post('poems/{poem}/activate', [PoemController::class, 'poems_status_toggle']);
 
-// poems
+// poetry collections
 Route::apiResource('poetry_collections' , PoetryCollectionController::class);
 Route::post('poetry_collections/{poetry_collection}/activate', [PoetryCollectionController::class, 'poetry_collections_status_toggle']);
+
+// lessons
+Route::apiResource('lessons' , LessonController::class);
+Route::post('lessons/{lesson}/activate', [LessonController::class, 'lessonss_status_toggle']);
