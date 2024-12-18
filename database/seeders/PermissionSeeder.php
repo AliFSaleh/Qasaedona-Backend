@@ -70,6 +70,13 @@ class PermissionSeeder extends Seeder
         if(!in_array('languages.delete', $permissions))
             Permission::create(['name' => 'languages.delete']);
 
+        if(!in_array('poetry_collections.read', $permissions))
+            Permission::create(['name' => 'poetry_collections.read']);
+        if(!in_array('poetry_collections.write', $permissions))
+            Permission::create(['name' => 'poetry_collections.write']);
+        if(!in_array('poetry_collections.delete', $permissions))
+            Permission::create(['name' => 'poetry_collections.delete']);
+
         if(!Role::where('name', 'admin')->exists())
             Role::create([
                 'id'         => 1,

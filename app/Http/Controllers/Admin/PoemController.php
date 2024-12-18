@@ -102,7 +102,7 @@ class PoemController extends Controller
             'language_id'       => ['integer', 'exists:languages,id'],
             'category_id'       => ['integer', 'exists:categories,id'],
             'occasion_id'       => ['integer', 'exists:occasions,id'],
-            'poet_id'           => ['integer', 'exists:poets,id'],
+            'poet_id'           => ['integer', 'exists:users,id'],
             'per_page'          => ['integer', 'min:1'],
             'status'            => ['integer', 'in:1,0'],
             'type'              => ['string', 'in:madeh,rethaa'],
@@ -187,7 +187,7 @@ class PoemController extends Controller
     {
         $request->validate([
             'title'                 => ['required', 'string'],
-            'poet_id'               => ['required', 'integer', 'exists:poets,id'],
+            'poet_id'               => ['required', 'integer', 'exists:users,id'],
             'type'                  => ['required', 'in:madeh,rethaa'],
             'poem_type_id'          => ['required', 'integer', 'exists:poem_types,id'],
             'category_id'           => ['required', 'integer', 'exists:categories,id'],
@@ -325,7 +325,7 @@ class PoemController extends Controller
     {
         $request->validate([
             'title'                 => ['required', 'string'],
-            'poet_id'               => ['required', 'integer', 'exists:poets,id'],
+            'poet_id'               => ['required', 'integer', 'exists:users,id'],
             'type'                  => ['required', 'in:madeh,rethaa'],
             'poem_type_id'          => ['required', 'integer', 'exists:poem_types,id'],
             'category_id'           => ['required', 'integer', 'exists:categories,id'],

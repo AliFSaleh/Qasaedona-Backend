@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\OccasionController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PoemTypeController;
+use App\Http\Controllers\Admin\PoetryCollectionController;
 use App\Http\Controllers\Admin\RawadedController;
 use App\Http\Controllers\Admin\RejectReasonController;
 use App\Http\Controllers\Admin\RoleController;
@@ -68,4 +69,8 @@ Route::apiResource('reject_reasons' , RejectReasonController::class);
 
 // poems
 Route::apiResource('poems' , PoemController::class);
-Route::post('poems/{rawaded}/activate', [PoemController::class, 'poems_status_toggle']);
+Route::post('poems/{poem}/activate', [PoemController::class, 'poems_status_toggle']);
+
+// poems
+Route::apiResource('poetry_collections' , PoetryCollectionController::class);
+Route::post('poetry_collections/{poetry_collection}/activate', [PoetryCollectionController::class, 'poetry_collections_status_toggle']);
