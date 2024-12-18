@@ -3742,11 +3742,63 @@
         "/languages": {
             "get": {
                 "tags": [
-                    "User - Languages"
+                    "User - Resources"
                 ],
                 "description": "Get languages",
                 "operationId": "get_languages",
                 "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/lessons": {
+            "get": {
+                "tags": [
+                    "User - Resources"
+                ],
+                "description": "Get lessons",
+                "operationId": "get_lessons",
+                "parameters": [
+                    {
+                        "name": "poet_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
                     {
                         "name": "with_paginate",
                         "in": "query",
@@ -3848,10 +3900,6 @@
         {
             "name": "User - Resources",
             "description": "User - Resources"
-        },
-        {
-            "name": "User - Languages",
-            "description": "User - Languages"
         }
     ],
     "components": {
