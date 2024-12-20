@@ -40,3 +40,4 @@ Route::get('languages', [ResourceController::class, 'get_languages']);
 Route::get('lessons', [ResourceController::class, 'get_lessons']);
 Route::get('poetry_collections', [ResourceController::class, 'get_poetry_collections']);
 Route::get('pages', [ResourceController::class, 'get_pages']);
+Route::get('sliders', [ResourceController::class, 'get_sliders']);

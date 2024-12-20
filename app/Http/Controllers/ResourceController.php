@@ -9,6 +9,7 @@ use App\Http\Resources\PageResource;
 use App\Http\Resources\PoemAttributeResource;
 use App\Http\Resources\PoetryCollectionResource;
 use App\Http\Resources\RawadedResource;
+use App\Http\Resources\SliderResource;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Language;
@@ -18,6 +19,7 @@ use App\Models\Page;
 use App\Models\PoemType;
 use App\Models\PoetryCollection;
 use App\Models\Rawaded;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 use Mosab\Translation\Models\Translation;
 
@@ -514,5 +516,25 @@ class ResourceController extends Controller
         $pages = $q->get();
 
         return PageResource::collection($pages);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/sliders",
+     * description="Get sliders",
+     * operationId="get_sliders",
+     * tags={"User - Resources"},
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  ),
+     *  )
+    */
+    public function get_sliders()
+    {
+        $q = Slider::query()->latest();
+        $sliders = $q->get();
+
+        return SliderResource::collection($sliders);
     }
 }

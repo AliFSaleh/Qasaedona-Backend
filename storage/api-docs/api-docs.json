@@ -4243,6 +4243,20 @@
                     }
                 }
             }
+        },
+        "/sliders": {
+            "get": {
+                "tags": [
+                    "User - Resources"
+                ],
+                "description": "Get sliders",
+                "operationId": "get_sliders",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "tags": [
