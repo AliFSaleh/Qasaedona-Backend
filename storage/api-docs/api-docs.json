@@ -790,6 +790,112 @@
                 ]
             }
         },
+        "/admin/messages": {
+            "get": {
+                "tags": [
+                    "Admin - Contact Us"
+                ],
+                "description": "Get all messages",
+                "operationId": "get_all_messages",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/admin/messages/{id}/read": {
+            "post": {
+                "tags": [
+                    "Admin - Contact Us"
+                ],
+                "description": "read the message.",
+                "operationId": "7dd686a513b086f0039e28c554a4faeb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/admin/occasions": {
             "get": {
                 "tags": [
@@ -4289,6 +4395,10 @@
         {
             "name": "Admin - Lessons",
             "description": "Admin - Lessons"
+        },
+        {
+            "name": "Admin - Contact Us",
+            "description": "Admin - Contact Us"
         },
         {
             "name": "Admin - Occasions",

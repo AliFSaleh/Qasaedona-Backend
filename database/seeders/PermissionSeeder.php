@@ -89,6 +89,11 @@ class PermissionSeeder extends Seeder
         if(!in_array('pages.write', $permissions))
             Permission::create(['name' => 'pages.write']);
 
+        if(!in_array('messages.read', $permissions))
+            Permission::create(['name' => 'messages.read']);
+        if(!in_array('messages.write', $permissions))
+            Permission::create(['name' => 'messages.write']);
+
         if(!Role::where('name', 'admin')->exists())
             Role::create([
                 'id'         => 1,
