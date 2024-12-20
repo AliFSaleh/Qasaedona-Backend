@@ -28,6 +28,7 @@ class UserResource extends JsonResource
             'status'            => $this->status,
             'last_join_request' => new JoinRequestResource($this->whenLoaded('last_join_request')), 
             'role'              => $this->roleModel(),
+            'created_at'        => $this->created_at,
         ];
     }
 }

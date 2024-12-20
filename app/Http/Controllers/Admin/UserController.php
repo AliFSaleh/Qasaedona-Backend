@@ -46,6 +46,12 @@ class UserController extends Controller
      *   ),
      *   @OA\Parameter(
      *     in="query",
+     *     name="country_id",
+     *     required=false,
+     *     @OA\Schema(type="string"),
+     *   ),
+     *   @OA\Parameter(
+     *     in="query",
      *     name="role_id",
      *     required=false,
      *     @OA\Schema(type="string"),
@@ -112,6 +118,7 @@ class UserController extends Controller
         $request->validate([
             'q'                   => ['string'],
             'role_id'             => ['exists:roles,id'],
+            'country_id'          => ['exists:countries,id'],
             'profile_status'      => ['integer', 'in:1,0'],
             'has_account'         => ['integer', 'in:1,0'],
             'status'              => ['integer', 'in:1,0'],
@@ -123,6 +130,9 @@ class UserController extends Controller
         ]);
 
         $q = User::query();
+
+        if($request->country_id)
+            $q->where('country_id', $request->country_id);
 
         if($request->status === '0'){
             $q->where('status', false);
@@ -150,6 +160,8 @@ class UserController extends Controller
         if ($request->q) {
             $q->where(function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->q . '%')
+                        ->orWhere('email', 'like', '%' . $request->q . '%')
+                        ->orWhere('phone', 'like', '%' . $request->q . '%')
                         ->orWhere('id', $request->q);
             });
         }
