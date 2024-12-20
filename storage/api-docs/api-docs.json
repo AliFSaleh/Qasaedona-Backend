@@ -3939,6 +3939,50 @@
                 ]
             }
         },
+        "/messages": {
+            "post": {
+                "tags": [
+                    "User - Contact Us"
+                ],
+                "description": "Add new message.",
+                "operationId": "941d583a09ed64becb2c2f4753c22501",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "full_name",
+                                    "email",
+                                    "phone",
+                                    "message"
+                                ],
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
         "/countries": {
             "get": {
                 "tags": [
@@ -4451,6 +4495,10 @@
         {
             "name": "User - Join as Poet",
             "description": "User - Join as Poet"
+        },
+        {
+            "name": "User - Contact Us",
+            "description": "User - Contact Us"
         },
         {
             "name": "User - Resources",

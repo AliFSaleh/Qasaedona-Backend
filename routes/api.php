@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JoinRequestController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ResourceController;
 
 /*
@@ -29,6 +30,9 @@ Route::delete('user/delete_account', [AuthController::class, 'delete_user']);
 Route::post('verify-request', [JoinRequestController::class, 'verify_request']);
 Route::post('verify-account' , [JoinRequestController::class, 'verify_account']);
 Route::post('join-requests', [JoinRequestController::class, 'join_request']);
+
+// contact us
+Route::post('messages', [MessageController::class, 'store']);
 
 // resources
 Route::get('countries', [ResourceController::class, 'get_countries']);
