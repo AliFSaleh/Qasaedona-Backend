@@ -1083,6 +1083,90 @@
                 ]
             }
         },
+        "/admin/pages": {
+            "get": {
+                "tags": [
+                    "Admin - Pages"
+                ],
+                "description": "Get all pages",
+                "operationId": "get_all_pages",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "about_us",
+                                "privacy_policy",
+                                "terms_and_condition",
+                                "submit_poem_description",
+                                "join_us_as_poet_description",
+                                "default_rejection_reason"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/admin/pages/{id}": {
+            "post": {
+                "tags": [
+                    "Admin - Pages"
+                ],
+                "description": "Edit page.",
+                "operationId": "ba7248519ed24a28b4ba03f01e1ce84f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/admin/permissions": {
             "get": {
                 "tags": [
@@ -2799,6 +2883,14 @@
                         }
                     },
                     {
+                        "name": "country_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "role_id",
                         "in": "query",
                         "required": false,
@@ -3886,6 +3978,37 @@
                     }
                 }
             }
+        },
+        "/pages": {
+            "get": {
+                "tags": [
+                    "User - Resources"
+                ],
+                "description": "Get pages",
+                "operationId": "get_pages",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "about_us",
+                                "privacy_policy",
+                                "terms_and_condition",
+                                "refund_policy",
+                                "rewards_rules"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -3908,6 +4031,10 @@
         {
             "name": "Admin - Occasions",
             "description": "Admin - Occasions"
+        },
+        {
+            "name": "Admin - Pages",
+            "description": "Admin - Pages"
         },
         {
             "name": "Permissions",

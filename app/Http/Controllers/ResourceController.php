@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CountryResource;
 use App\Http\Resources\LessonResource;
 use App\Http\Resources\OccasionResource;
+use App\Http\Resources\PageResource;
 use App\Http\Resources\PoemAttributeResource;
 use App\Http\Resources\PoetryCollectionResource;
 use App\Http\Resources\RawadedResource;
@@ -13,6 +14,7 @@ use App\Models\Country;
 use App\Models\Language;
 use App\Models\Lesson;
 use App\Models\Occasion;
+use App\Models\Page;
 use App\Models\PoemType;
 use App\Models\PoetryCollection;
 use App\Models\Rawaded;
@@ -479,5 +481,38 @@ class ResourceController extends Controller
             $poetry_collections = $q->paginate($request->per_page ?? 10);
 
         return PoetryCollectionResource::collection($poetry_collections);
+    }
+    
+    /**
+     * @OA\Get(
+     * path="/pages",
+     * description="Get pages",
+     * operationId="get_pages",
+     * tags={"User - Resources"},
+     * @OA\Parameter(
+     *    in="query",
+     *    name="key",
+     *    required=false,
+     *    @OA\Schema(type="string", enum={"about_us","privacy_policy","terms_and_condition","refund_policy","rewards_rules"}),
+     * ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  ),
+     *  )
+    */
+    public function get_pages(Request $request)
+    {
+        $request->validate([
+            'key'   => ['string', 'in:about_us,privacy_policy,terms_and_condition,submit_poem_description,join_us_as_poet_description,default_rejection_reason']
+        ]);
+
+        $q = Page::query();
+
+        if($request->key)
+            $q->where('key', $request->key);
+        $pages = $q->get();
+
+        return PageResource::collection($pages);
     }
 }
