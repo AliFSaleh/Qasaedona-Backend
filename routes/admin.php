@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\OccasionController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PoemTypeController;
@@ -79,3 +80,7 @@ Route::post('poetry_collections/{poetry_collection}/activate', [PoetryCollection
 // lessons
 Route::apiResource('lessons' , LessonController::class);
 Route::post('lessons/{lesson}/activate', [LessonController::class, 'lessonss_status_toggle']);
+
+//pages
+Route::get('pages', [PageController::class, 'index']);
+Route::post('pages/{page}', [PageController::class, 'update']);
