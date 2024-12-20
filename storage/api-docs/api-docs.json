@@ -2866,6 +2866,240 @@
                 ]
             }
         },
+        "/admin/sliders": {
+            "get": {
+                "tags": [
+                    "Admin - Sliders"
+                ],
+                "description": "Get all sliders",
+                "operationId": "get_all_sliders",
+                "parameters": [
+                    {
+                        "name": "with_paginate",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "enum": [
+                                0,
+                                1
+                            ]
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin - Sliders"
+                ],
+                "description": "Add new slider.",
+                "operationId": "a868e0eeee2796cf41df89ca1301242d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "type",
+                                    "media_id"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "internal_linked",
+                                            "external_link",
+                                            "not_linked"
+                                        ]
+                                    },
+                                    "media_id": {
+                                        "type": "integer"
+                                    },
+                                    "linked_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "radod",
+                                            "poet",
+                                            "lesson",
+                                            "add_poem",
+                                            "contact_us"
+                                        ]
+                                    },
+                                    "linked_id": {
+                                        "type": "integer"
+                                    },
+                                    "external_link": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/admin/sliders/{id}": {
+            "get": {
+                "tags": [
+                    "Admin - Sliders"
+                ],
+                "description": "Get slider information.",
+                "operationId": "show_slider",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin - Sliders"
+                ],
+                "description": "Edit slider.",
+                "operationId": "8e763f37ed23475a2b10a90ffcef32c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "internal_linked",
+                                            "external_link",
+                                            "not_linked"
+                                        ]
+                                    },
+                                    "media_id": {
+                                        "type": "integer"
+                                    },
+                                    "linked_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "radod",
+                                            "poet",
+                                            "lesson",
+                                            "add_poem",
+                                            "contact_us"
+                                        ]
+                                    },
+                                    "linked_id": {
+                                        "type": "integer"
+                                    },
+                                    "external_link": {
+                                        "type": "string"
+                                    },
+                                    "_method": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "PUT"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin - Sliders"
+                ],
+                "description": "Delete entered slider.",
+                "operationId": "delete_slider",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "An int value.",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/admin/users": {
             "get": {
                 "tags": [
@@ -4063,6 +4297,10 @@
         {
             "name": "Roles",
             "description": "Roles"
+        },
+        {
+            "name": "Admin - Sliders",
+            "description": "Admin - Sliders"
         },
         {
             "name": "Admin - Users",

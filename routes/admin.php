@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PoetryCollectionController;
 use App\Http\Controllers\Admin\RawadedController;
 use App\Http\Controllers\Admin\RejectReasonController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UserController;
 
 use Illuminate\Support\Facades\Route;
@@ -84,3 +85,6 @@ Route::post('lessons/{lesson}/activate', [LessonController::class, 'lessonss_sta
 //pages
 Route::get('pages', [PageController::class, 'index']);
 Route::post('pages/{page}', [PageController::class, 'update']);
+
+//banners
+Route::apiResource('sliders', SliderController::class);
