@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CountryResource;
 use App\Http\Resources\LessonResource;
+use App\Http\Resources\MediaConstantResource;
 use App\Http\Resources\OccasionResource;
 use App\Http\Resources\PageResource;
 use App\Http\Resources\PoemAttributeResource;
@@ -14,6 +15,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Language;
 use App\Models\Lesson;
+use App\Models\MediaConstant;
 use App\Models\Occasion;
 use App\Models\Page;
 use App\Models\PoemType;
@@ -536,5 +538,25 @@ class ResourceController extends Controller
         $sliders = $q->get();
 
         return SliderResource::collection($sliders);
+    }
+
+    /**
+     * @OA\Get(
+     * path="/media_constants",
+     * description="Get media_constants",
+     * operationId="get_media_constants",
+     * tags={"User - Resources"},
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *  ),
+     *  )
+    */
+    public function get_media_constants()
+    {
+        $q = MediaConstant::latest();
+        $media_constants = $q->get();
+
+        return MediaConstantResource::collection($media_constants);
     }
 }

@@ -4257,6 +4257,20 @@
                     }
                 }
             }
+        },
+        "/media_constants": {
+            "get": {
+                "tags": [
+                    "User - Resources"
+                ],
+                "description": "Get media_constants",
+                "operationId": "get_media_constants",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "tags": [
