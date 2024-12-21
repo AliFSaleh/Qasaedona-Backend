@@ -896,6 +896,47 @@
                 ]
             }
         },
+        "/admin/send_notification": {
+            "post": {
+                "tags": [
+                    "Admin - Notifications"
+                ],
+                "description": "send_notification.",
+                "operationId": "c840ae676b9463c8ca9c0b35f4d57f4a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "body"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/admin/occasions": {
             "get": {
                 "tags": [
@@ -3983,6 +4024,146 @@
                 }
             }
         },
+        "/fcm_token": {
+            "post": {
+                "tags": [
+                    "User - Notifications"
+                ],
+                "description": "create fcm token.",
+                "operationId": "6c41fd001b05bb76a8e057dc30cc5cd9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "device_token",
+                                    "fcm_token",
+                                    "language"
+                                ],
+                                "properties": {
+                                    "device_token": {
+                                        "type": "string"
+                                    },
+                                    "fcm_token": {
+                                        "type": "string"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "enum": [
+                                            "en",
+                                            "ar"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/notifications": {
+            "get": {
+                "tags": [
+                    "User - Notifications"
+                ],
+                "description": "Get my notifications.",
+                "operationId": "show_my_notifications",
+                "parameters": [
+                    {
+                        "name": "device_token",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/notifications/read": {
+            "post": {
+                "tags": [
+                    "User - Notifications"
+                ],
+                "description": "read a notifications.",
+                "operationId": "b1ebc6799cffe50c489e53e369f31e1f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "notifications_ids[0]"
+                                ],
+                                "properties": {
+                                    "notifications_ids[0]": {
+                                        "type": "integer"
+                                    },
+                                    "notifications_ids[1]": {
+                                        "type": "integer"
+                                    },
+                                    "device_token": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/notifications/read/all": {
+            "post": {
+                "tags": [
+                    "User - Notifications"
+                ],
+                "description": "read all notifications.",
+                "operationId": "9b4f691b4907b3b03e9ff00602f792a9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "device_token": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
         "/countries": {
             "get": {
                 "tags": [
@@ -4445,6 +4626,10 @@
             "description": "Admin - Contact Us"
         },
         {
+            "name": "Admin - Notifications",
+            "description": "Admin - Notifications"
+        },
+        {
             "name": "Admin - Occasions",
             "description": "Admin - Occasions"
         },
@@ -4499,6 +4684,10 @@
         {
             "name": "User - Contact Us",
             "description": "User - Contact Us"
+        },
+        {
+            "name": "User - Notifications",
+            "description": "User - Notifications"
         },
         {
             "name": "User - Resources",

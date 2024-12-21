@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JoinRequestController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ResourceController;
 
 /*
@@ -30,6 +31,12 @@ Route::delete('user/delete_account', [AuthController::class, 'delete_user']);
 Route::post('verify-request', [JoinRequestController::class, 'verify_request']);
 Route::post('verify-account' , [JoinRequestController::class, 'verify_account']);
 Route::post('join-requests', [JoinRequestController::class, 'join_request']);
+
+// notification
+Route::post('fcm_token', [NotificationController::class, 'register_token']);
+Route::get('notifications', [NotificationController::class, 'get_notifications']);
+Route::post('notifications/read', [NotificationController::class, 'notifications_read']);
+Route::post('notifications/read/all', [NotificationController::class, 'notifications_read_all']);
 
 // contact us
 Route::post('messages', [MessageController::class, 'store']);

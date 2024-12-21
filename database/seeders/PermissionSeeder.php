@@ -93,6 +93,9 @@ class PermissionSeeder extends Seeder
             Permission::create(['name' => 'messages.read']);
         if(!in_array('messages.write', $permissions))
             Permission::create(['name' => 'messages.write']);
+        
+        if(!in_array('notification.write', $permissions))
+            Permission::create(['name' => 'notification.write']);
 
         if(!Role::where('name', 'admin')->exists())
             Role::create([

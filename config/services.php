@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'fcm' => [
+        'credentialsPath' => storage_path('app/firebase_credentials.json'),
+        'project_id' => env('FCM_PROJECT_ID'),
+    ],
 ];

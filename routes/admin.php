@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\JoinRequestController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OccasionController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -93,3 +94,6 @@ Route::apiResource('sliders', SliderController::class);
 // contact us
 Route::get('messages', [MessageController::class, 'get_messages']);
 Route::post('messages/{message}/read', [MessageController::class, 'message_read_toggle']);
+
+// notifications
+Route::post('send_notification', [NotificationController::class, 'send']);
